@@ -127,7 +127,7 @@ function game(){
         var temp = clickedButton.style.backgroundColor;
 
         if(clickedButton.id == Number.parseInt(emptyBox.id,10)+1){
-            if(clickedButton.dataset.position != 'rightcolumn' && clickedButton.dataset.position != 'bottomleft'){
+            if(clickedButton.dataset.position != 'leftcolumn' && clickedButton.dataset.position != 'bottomleft'){
                 console.log(clickedButton.nextElementSibling);
                 console.log(`Changing Color to ${temp}`);
                 emptyBox.style.backgroundColor = temp;
@@ -140,7 +140,7 @@ function game(){
         }
 
         else if(clickedButton.id == Number.parseInt(emptyBox.id,10)-1){
-            if(clickedButton.dataset.position != 'leftcolumn' && clickedButton.dataset.position != 'topright'){
+            if(clickedButton.dataset.position != 'rightcolumn' && clickedButton.dataset.position != 'topright'){
                 console.log(clickedButton.nextElementSibling);
                 console.log(`Changing Color to ${temp}`);
                 emptyBox.style.backgroundColor = temp;
