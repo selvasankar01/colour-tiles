@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trying out JS</title>
+        <link rel="stylesheet" href="basic.css">
+    </head>
+    <body>
+        <div id="head">
+            <div id="details">
+              <p id="name">Player Name: User 001</p>
+              <span>Mode:</span>
+              <select class="type" name="Mode">
+                  <option value="easy">Easy</option>
+                  <option value="normal">Normal</option>
+              </select>
+              <p class="moves">No of Moves: 0</p>
+              <p id="time">Time: 00:00</p>
+              <button id="start">Wait</button>
+            </div>
+            <div id="solution">
+              <div class="threecrosssolution" id="1s"></div>
+              <div class="threecrosssolution" id="2s"></div>
+              <div class="threecrosssolution" id="3s"></div>
+              <div class="threecrosssolution" id="4s"></div>
+              <div class="threecrosssolution" id="5s"></div>
+              <div class="threecrosssolution" id="6s"></div>
+              <div class="threecrosssolution" id="7s"></div>
+              <div class="threecrosssolution" id="8s"></div>
+              <div class="threecrosssolution" id="9s"></div>
+            </div>
+          </div>
+          <div class="cen">
+              <div id="container">
+                <div class="five" id="1" data-position="topleft" data-normal="topleft"></div>
+                <div class="five" id="2" data-position="toprow" data-normal="toprow"></div>
+                <div class="five" id="3" data-position="toprow" data-normal="toprow"></div>
+                <div class="five" id="4" data-position="toprow" data-normal="toprow"></div>
+                <div class="five" id="5" data-position="topright" data-normal="toprow"></div>
+                <div class="five" id="6" data-position="leftcolumn" data-normal="topright"></div>
+                <div class="five three" id="7" data-normal="leftcolumn"></div>
+                <div class="five three" id="8"></div>
+                <div class="five three" id="9"></div>
+                <div class="five" id="10" data-position="rightcolumn"></div>
+                <div class="five" id="11"data-position="leftcolumn"></div>
+                <div class="five three" id="12" data-normal="rightcolumn"></div>
+                <div class="five three" id="13" data-normal="leftcolumn"></div>
+                <div class="five three" id="14"></div>
+                <div class="five" id="15" data-position="rightcolumn"></div>
+                <div class="five" id="16" data-position="leftcolumn"></div>
+                <div class="five three" id="17"></div>
+                <div class="five three" id="18" data-normal="rightcolumn"></div>
+                <div class="five three" id="19" data-normal="leftcolumn"></div>
+                <div class="five" id="20" data-position="rightcolumn"></div>
+                <div class="five" id="21" data-position="bottomleft"></div>
+                <div class="five" id="22" data-position="bottomrow"></div>
+                <div class="five" id="23" data-position="bottomrow"></div>
+                <div class="five" id="24" data-position="bottomrow" data-normal="rightcolumn"></div>
+                <div class="five" id="25" data-position="bottomright" data-normal="leftcolumn"></div>
+              </div>
+          </div>
+          <script src="basic.js"></script>
+    </body>
+</html>
