@@ -1,12 +1,12 @@
 body{
-    background-color: #1e2022;
+    background-color: black;
   }
 
 #head {
     height: 25vh;
     width: 90vw;
     display: flex;
-    margin: 5vh 5vw;
+    margin: 5vh 5vw 1vh;
     padding: 0;
     align-items: center;
     align-content: center;
@@ -23,13 +23,13 @@ button{
 
 #solution {
     display: grid;
-    height:24vh;
+    height:25vh;
     width: clamp(145px,24vw,245px);
     background-color: gray;
     border-radius: 1rem;
     padding: 0.5rem;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
     gap: 0.15rem;
     margin: 5px;
   }
@@ -44,8 +44,8 @@ button{
     height: 60vh;
     width:clamp(350px,60vw,545px);
     background-color: gray;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5,1fr);
     grid-gap: 0.15rem;
     border-radius:1rem;
     margin: 10vh 20vw;
@@ -57,6 +57,6 @@ button{
     background-color: gray;
   }
 
-  .five,.three,.threecrosssolution{
+  .five,.three,.threecrosssolution,.fourcrosssolution,.six{
     border-radius:1rem;
   }
