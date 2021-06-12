@@ -1,12 +1,14 @@
 body{
-    background-color: black;
+    background-color: #303841;
+    margin: 0%;
+    padding: 0;
   }
 
 #head {
-    height: 25vh;
-    width: 90vw;
+    height: auto;
+    width: 100%;
     display: flex;
-    margin: 5vh 5vw 1vh;
+    flex-wrap: wrap;
     padding: 0;
     align-items: center;
     align-content: center;
@@ -14,16 +16,35 @@ body{
   }
 
 #details{
-    color:white;
+    color:#eeeeee;
+    height: 100%;
 }
 
+#details,#solution{
+  flex: 0 1 200px;
+  margin: 30px 10px 0 ;
+}
 button{
-    width: max(100px,10vw);
+    width: max(80px,10vw);
+    height: 30px;
+    color: #303841;
+    outline: none;
+    border: none;
+    border-radius: 0.2rem;
+    background-color: #eeeeee;
+}
+
+button:hover{
+  background-color: #d6e6f2;
+}
+
+select{
+  color: #303841;
 }
 
 #solution {
     display: grid;
-    height:25vh;
+    height:clamp(150px,25vh,245px);
     width: clamp(145px,24vw,245px);
     background-color: gray;
     border-radius: 1rem;
@@ -31,24 +52,23 @@ button{
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3,1fr);
     gap: 0.15rem;
-    margin: 5px;
   }
 
   .cen{
-      display: flex;
-      justify-content: center;
+      display: grid;
+      place-items: center;
   }
 
   #container {
     display: grid;
-    height: 60vh;
-    width:clamp(350px,60vw,545px);
+    height: 45vh;
+    width:max(35vw,360px);
     background-color: gray;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: repeat(5,1fr);
     grid-gap: 0.15rem;
     border-radius:1rem;
-    margin: 10vh 20vw;
+    margin: 5vh 20px;
     padding: 0.5rem;
     justify-content: stretch;
   }
@@ -58,5 +78,13 @@ button{
   }
 
   .five,.three,.threecrosssolution,.fourcrosssolution,.six{
-    border-radius:1rem;
+    border-radius:0.5rem;
+  }
+
+
+  @media (max-width:360px){
+    #container{
+      margin: 20px 0 0 0;
+      width: 90vw;
+    }
   }
