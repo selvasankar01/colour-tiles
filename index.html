@@ -9,11 +9,16 @@
         <div id="head">
             <div id="details">
               <p id="name">Player Name: </p>
-              <span>Mode:  </span>
-              <select class="type" name="Mode">
+              <p><span>Difficulty: </span>
+              <select class="type" id="diffModes" name="difficulty">
                   <option value="easy">Easy</option>
                   <option value="normal">Normal</option>
-              </select>
+              </select></p>
+              <p><span>Mode: </span>
+                <select class="type" id="playersModes" name="mode">
+                  <option value="single">Single-player</option>
+                  <option value="multi">Multiplayer</option>
+              </select></p>
               <p class="moves">No of Moves: 0</p>
               <p id="time">Time: 0:0</p>
               <button id="start">Wait</button>

@@ -18,7 +18,7 @@ function randomColorGenerator(){
 
 function emptyBoxSelector(a){
     emptyBox = document.getElementById(String(Math.floor(Math.random()*a)));
-    console.log(`emptyBox = ${emptyBox.id}`);
+    //console.log(`emptyBox = ${emptyBox.id}`);
     emptyBox.style.backgroundColor = null;
 }
 
@@ -55,21 +55,13 @@ function timer(){
         score = 100 - ((seconds+(minutes*60))/10+(moves/5));
     }
     inter = setInterval(i,1000);
-    console.log(`inter = ${inter}`);
+    //console.log(`inter = ${inter}`);
 }
 
-function resetter(array,a){
-    var c;
-    if(array.length === 9){
-        c = 5;
-    }
-    else{
-        c = 6;
-    }
-    
+function resetter(array,a){    
     if (button.innerText === 'Start'){
         button.textContent = 'Reset';
-        game(c);
+        game();
         timer();
     }
     else if(button.innerText === 'Wait'){
@@ -90,7 +82,7 @@ function game(){
     var num;
     playArea.addEventListener('click',(e) => {
         var clickedDiv = e.target;
-        console.log('Clicked',clickedDiv);
+        //console.log('Clicked',clickedDiv);
         var temp = clickedDiv.style.backgroundColor;
         var data;
         var toCheck;
@@ -104,12 +96,12 @@ function game(){
             toCheck = checkNormal;
             num = 6;
         }
-        console.log(`typeof of num = ${typeof(num)} and num = ${num}`);
+        //console.log(`typeof of num = ${typeof(num)} and num = ${num}`);
         if(document.querySelector('#time').textContent != 'Time: 0:0'){
             if(clickedDiv.id == parseInt(emptyBox.id,10)+1){
                 if(data != 'leftcolumn'){
-                    console.log(clickedDiv.nextElementSibling);
-                    console.log(`Changing Color to ${temp}`);
+                    // console.log(clickedDiv.nextElementSibling);
+                    // console.log(`Changing Color to ${temp}`);
                     document.querySelector('#move').play();
                     emptyBox.style.backgroundColor = temp;
                     emptyBox = clickedDiv;
@@ -122,8 +114,8 @@ function game(){
 
             else if(clickedDiv.id == parseInt(emptyBox.id,10)-1){
                 if(data != 'rightcolumn'){
-                    console.log(clickedDiv.nextElementSibling);
-                    console.log(`Changing Color to ${temp}`);
+                    // console.log(clickedDiv.nextElementSibling);
+                    // console.log(`Changing Color to ${temp}`);
                     document.querySelector('#move').play();
                     emptyBox.style.backgroundColor = temp;
                     emptyBox = clickedDiv;
@@ -135,8 +127,8 @@ function game(){
             }
 
             else if(clickedDiv.id == parseInt(emptyBox.id,10)+num){
-                console.log(clickedDiv.nextElementSibling);
-                console.log(`Changing Color to ${temp}`);
+                // console.log(clickedDiv.nextElementSibling);
+                // console.log(`Changing Color to ${temp}`);
                 document.querySelector('#move').play();
                 emptyBox.style.backgroundColor = temp;
                 emptyBox = clickedDiv;
@@ -147,8 +139,8 @@ function game(){
             }
 
             else if(clickedDiv.id == parseInt(emptyBox.id,10)- num){
-                console.log(clickedDiv.nextElementSibling);
-                console.log(`Changing Color to ${temp}`);
+                // console.log(clickedDiv.nextElementSibling);
+                // console.log(`Changing Color to ${temp}`);
                 document.querySelector('#move').play();
                 emptyBox.style.backgroundColor = temp;
                 emptyBox = clickedDiv;
@@ -160,10 +152,10 @@ function game(){
             else{
                 document.querySelector('#wrong').play();
             }
-            console.log(`clicked.id - ${num} = ${parseInt(emptyBox.id)-num}`);
+            //console.log(`clicked.id - ${num} = ${parseInt(emptyBox.id)-num}`);
         }
     });    
-    console.log(`No.of Moves: ${moves}`);
+    //console.log(`No.of Moves: ${moves}`);
 }
 
 function checker(){
@@ -174,7 +166,7 @@ function checker(){
         for(let i = 0; i < refrenceEasy.length; i++){
             if(refrenceEasy[i].style.backgroundColor === checkEasy[i].style.backgroundColor){
                 count++;
-                console.log('Correct Block');
+                //console.log('Correct Block');
             }
             else{
                 break;
@@ -186,7 +178,7 @@ function checker(){
         for(let i =0; i < refrenceNormal.length; i++){
             if(refrenceNormal[i].style.backgroundColor === checkNormal[i].style.backgroundColor){
                 count++;
-                console.log('Correct Block');
+                //console.log('Correct Block');
             }
             else{
                 break;
@@ -195,7 +187,7 @@ function checker(){
     }
     if(count === checkArray.length){
         if (checkArray.length === 9){
-            if(!localStorage.getItem('easyHighScore')){
+            if(!localStorage.getItem('easyScore')){
                 localStorage.setItem('easyHigh',name);
                 localStorage.setItem('easyScore',score);
             }
@@ -210,7 +202,7 @@ function checker(){
             resetter(refrenceEasy,4);
         }
         else if(checkArray.length === 16){
-            if(!localStorage.getItem('normalHighScore')){
+            if(!localStorage.getItem('normalScore')){
                 localStorage.setItem('normalHigh',name);
                 localStorage.setItem('noramlScore',score);
             }
@@ -237,12 +229,12 @@ function colorControl(blockArray,a){
     var countMaroon = 0;
     var randomColor = randomColorGenerator();
 
-    console.log(`blockArray  = ${blockArray.length}`);
+    //console.log(`blockArray  = ${blockArray.length}`);
 
     for(let i =0; i < blockArray.length; i++){
         
-        console.log(`i = ${i}`);
-        console.log(`randomColor = ${randomColor}`)
+        // console.log(`i = ${i}`);
+        // console.log(`randomColor = ${randomColor}`)
 
         if(blockArray[i].id != emptyBox.id){
 
@@ -291,9 +283,9 @@ function colorControl(blockArray,a){
                     break;
             }
             randomColor = randomColorGenerator();
-            console.log(`Changed randomColor = ${randomColor}`);
+            //console.log(`Changed randomColor = ${randomColor}`);
         }
-        console.log(`orange = ${countOrange}, yellow = ${countYellow}, blue = ${countBlue}, green = ${countGreen}, maroon = ${countMaroon}, white = ${countWhite}...`);
+        //console.log(`orange = ${countOrange}, yellow = ${countYellow}, blue = ${countBlue}, green = ${countGreen}, maroon = ${countMaroon}, white = ${countWhite}...`);
     }
 }
 
@@ -391,5 +383,13 @@ button.addEventListener('click',() =>{
         resetter(refrenceNormal,6);
     }
 });
+
+var player = document.querySelector('#playersModes');
+
+player.onchange = () => {
+    if(player.value === 'multi'){
+        location.assign('multiplayer.html');
+    }
+}
 
 runit();

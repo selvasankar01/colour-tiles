@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>Colour Tiles-Mutiplayer</title>
+    <link rel="stylesheet" href="multiplayer.css">
+</head>
+<body>
+    <div id="head">
+        <div id="details">
+            <span id="name">Player Name: </span>
+            <p><span>Mode:</span>
+            <select name="diff" class="mode" id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+            </select></p>
+            <p><span>Mode:</span>
+            <select name="multi" class="mode" id="noofplayers">
+                <option value="dual">Multiplayer</option>
+                <option value="single">Singleplayer</option>
+            </select></p>
+            <p id="moves">No of Moves: 0</p>
+            <button id="start">Wait</button>
+        </div>
+        <div id="solution">
+            <div class="threecrosssolution fourcrosssolution" id="1s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="2s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="3s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="4s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="5s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="6s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="7s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="8s"></div>
+            <div class="threecrosssolution fourcrosssolution" id="9s"></div>
+        </div>
+    </div>
+    <div class="cen">
+        <div id="container">
+          <div class="five six" id="1" data-position="topleft" data-normal="topleft"></div>
+          <div class="five six" id="2" data-position="toprow" data-normal="toprow"></div>
+          <div class="five six" id="3" data-position="toprow" data-normal="toprow"></div>
+          <div class="five six" id="4" data-position="toprow" data-normal="toprow"></div>
+          <div class="five six" id="5" data-position="rightcolumn" data-normal="toprow"></div>
+          <div class="five six" id="6" data-position="leftcolumn" data-normal="rightcolumn"></div>
+          <div class="five six three" id="7" data-normal="leftcolumn"></div>
+          <div class="five six three four" id="8"></div>
+          <div class="five six three four" id="9"></div>
+          <div class="five six four" id="10" data-position="rightcolumn"></div>
+          <div class="five six four" id="11"data-position="leftcolumn"></div>
+          <div class="five six three" id="12" data-normal="rightcolumn"></div>
+          <div class="five six three" id="13" data-normal="leftcolumn"></div>
+          <div class="five six three four" id="14"></div>
+          <div class="five six four" id="15" data-position="rightcolumn"></div>
+          <div class="five six four" id="16" data-position="leftcolumn"></div>
+          <div class="five six three four" id="17"></div>
+          <div class="five six three" id="18" data-normal="rightcolumn"></div>
+          <div class="five six three" id="19" data-normal="leftcolumn"></div>
+          <div class="five six four" id="20" data-position="rightcolumn"></div>
+          <div class="five six four" id="21" data-position="leftcolumn"></div>
+          <div class="five six four" id="22" data-position="bottomrow"></div>
+          <div class="five six four" id="23" data-position="bottomrow"></div>
+          <div class="five six" id="24" data-position="bottomrow" data-normal="rightcolumn"></div>
+          <div class="five six" id="25" data-position="bottomright" data-normal="leftcolumn"></div>
+        </div>
+    </div>
+    <audio class="aud" id="final" src = "assets/finished.mp3"></audio>
+          <audio class="aud" id="move" src = "assets/move.mp3"></audio>
+          <audio class="aud" id="wrong" src = "assets/wrong.mp3"></audio>
+          <script src="multi.js"></script>
+</body>
+
+</html>
