@@ -1,15 +1,13 @@
-const refrenceEasy = Array.from(document.querySelectorAll('.threecrosssolution'));
-var refrenceNormal = Array.from(document.querySelectorAll('.fourcrosssolution'));
-const checkEasy = Array.from(document.querySelectorAll('.three'));
-var checkNormal;
-var entireBlock;
 const button = document.querySelector('button');
 const playArea = document.querySelector('#container');
+var refrence = Array.from(document.querySelectorAll('.threecrosssolution'));
+var checkThisOne = Array.from(document.querySelectorAll('.three'));
+var entireBlock;
 var moves = 0;
-var inter;
 var score = 0;
+var inter;
 var emptyBox;
-var name = 'Player';
+var name;
 
 function randomColorGenerator(){
     let colorList = ['blue','yellow','orange','white','green','maroon'];
@@ -17,8 +15,8 @@ function randomColorGenerator(){
 }
 
 function emptyBoxSelector(a){
-    emptyBox = document.getElementById(String(Math.floor(Math.random()*a)));
-    //console.log(`emptyBox = ${emptyBox.id}`);
+    emptyBox = document.getElementById(String(Math.floor(Math.random()*a+1)));
+    console.log(`emptyBox = ${emptyBox.id}`);
     emptyBox.style.backgroundColor = null;
 }
 
@@ -79,44 +77,38 @@ function resetter(array,a){
 }
 
 function game(){
-    var num;
+    var num;  //alowas the block to move up and down
     playArea.addEventListener('click',(e) => {
         var clickedDiv = e.target;
-        //console.log('Clicked',clickedDiv);
         var temp = clickedDiv.style.backgroundColor;
         var data;
-        var toCheck;
+
         if(document.querySelector('select').value === 'easy'){
             data = clickedDiv.dataset.position;
-            toCheck = checkEasy;
             num = 5;
         }
         else if(document.querySelector('select').value === 'normal'){
             data = clickedDiv.dataset.normal;
-            toCheck = checkNormal;
             num = 6;
         }
-        //console.log(`typeof of num = ${typeof(num)} and num = ${num}`);
+
+
         if(document.querySelector('#time').textContent != 'Time: 0:0'){
             if(clickedDiv.id == parseInt(emptyBox.id,10)+1){
                 if(data != 'leftcolumn'){
-                    // console.log(clickedDiv.nextElementSibling);
-                    // console.log(`Changing Color to ${temp}`);
-                    document.querySelector('#move').play();
+                    moveSounds(true);
                     emptyBox.style.backgroundColor = temp;
                     emptyBox = clickedDiv;
                     emptyBox.style.backgroundColor = null;
                     moves++;
                     movesSetter();
-                    checker(toCheck)
+                    checker()
                 }
             }
 
             else if(clickedDiv.id == parseInt(emptyBox.id,10)-1){
                 if(data != 'rightcolumn'){
-                    // console.log(clickedDiv.nextElementSibling);
-                    // console.log(`Changing Color to ${temp}`);
-                    document.querySelector('#move').play();
+                    moveSounds(true);
                     emptyBox.style.backgroundColor = temp;
                     emptyBox = clickedDiv;
                     emptyBox.style.backgroundColor = null;
@@ -127,9 +119,7 @@ function game(){
             }
 
             else if(clickedDiv.id == parseInt(emptyBox.id,10)+num){
-                // console.log(clickedDiv.nextElementSibling);
-                // console.log(`Changing Color to ${temp}`);
-                document.querySelector('#move').play();
+                moveSounds(true);
                 emptyBox.style.backgroundColor = temp;
                 emptyBox = clickedDiv;
                 emptyBox.style.backgroundColor = null;
@@ -139,9 +129,7 @@ function game(){
             }
 
             else if(clickedDiv.id == parseInt(emptyBox.id,10)- num){
-                // console.log(clickedDiv.nextElementSibling);
-                // console.log(`Changing Color to ${temp}`);
-                document.querySelector('#move').play();
+                moveSounds(true);
                 emptyBox.style.backgroundColor = temp;
                 emptyBox = clickedDiv;
                 emptyBox.style.backgroundColor = null;
@@ -150,71 +138,63 @@ function game(){
                 checker();
             }
             else{
-                document.querySelector('#wrong').play();
+                 moveSounds(false);
+                 console.log('Played Wrong tune');
             }
-            //console.log(`clicked.id - ${num} = ${parseInt(emptyBox.id)-num}`);
         }
     });    
-    //console.log(`No.of Moves: ${moves}`);
+}
+function moveSounds(boolean) {
+    if(boolean){
+        document.querySelector('#move').play();
+    }
+    else{
+        document.querySelector('#wrong').play();
+    }
 }
 
 function checker(){
+
     var count = 0;
-    var checkArray;
-    if (document.querySelector('select').value === 'easy'){
-        checkArray = checkEasy;
-        for(let i = 0; i < refrenceEasy.length; i++){
-            if(refrenceEasy[i].style.backgroundColor === checkEasy[i].style.backgroundColor){
-                count++;
-                //console.log('Correct Block');
-            }
-            else{
-                break;
-            }
+    for(let i = 0; i < refrence.length; i++){
+        if(refrence[i].style.backgroundColor === checkThisOne[i].style.backgroundColor){
+            count++;
+        }
+        else{
+            break;
         }
     }
-    else if(document.querySelector('select').value === 'normal'){
-        checkArray = checkNormal;
-        for(let i =0; i < refrenceNormal.length; i++){
-            if(refrenceNormal[i].style.backgroundColor === checkNormal[i].style.backgroundColor){
-                count++;
-                //console.log('Correct Block');
-            }
-            else{
-                break;
-            }
-        }
-    }
-    if(count === checkArray.length){
-        if (checkArray.length === 9){
+
+    if(count === checkThisOne.length){
+        if (checkThisOne.length === 9){
             if(!localStorage.getItem('easyScore')){
                 localStorage.setItem('easyHigh',name);
                 localStorage.setItem('easyScore',score);
             }
             else{
                 if(localStorage.getItem('easyScore') < score){
-                    localStorage.getItem('esayHigh') = name;
-                    localStorage.getItem('easyScore') = score;
+                    localStorage.setItem('easyHigh',name);
+                    localStorage.setItem('easyScore',score);
                 }
             }
             document.querySelector('#final').play();
             alert(`Your Score is ${score}\nHighest Score is by ${localStorage.getItem('easyHigh')} and is ${localStorage.getItem('easyScore')}`);
-            resetter(refrenceEasy,4);
+            resetter(refrence,4);
         }
-        else if(checkArray.length === 16){
+        else if(checkThisOne.length === 16){
             if(!localStorage.getItem('normalScore')){
                 localStorage.setItem('normalHigh',name);
-                localStorage.setItem('noramlScore',score);
+                localStorage.setItem('normalScore',score);
             }
             else{
                 if(localStorage.getItem('normalScore') < score){
-                    localStorage.getItem('normalHigh') = name;
-                    localStorage.getItem('normalScore') = score;
+                    localStorage.setItem('normalHigh',name);
+                    localStorage.setItem('normalScore',score);
                 }
             }
             document.querySelector('#final').play();
             alert(`Your Score is ${score}\nHighest Score is by ${localStorage.getItem('normalHigh')} and is ${localStorage.getItem('normalScore')}`);
-            resetter(refrenceNormal,6);
+            resetter(refrence,6);
         }
     }
 }
@@ -229,12 +209,7 @@ function colorControl(blockArray,a){
     var countMaroon = 0;
     var randomColor = randomColorGenerator();
 
-    //console.log(`blockArray  = ${blockArray.length}`);
-
     for(let i =0; i < blockArray.length; i++){
-        
-        // console.log(`i = ${i}`);
-        // console.log(`randomColor = ${randomColor}`)
 
         if(blockArray[i].id != emptyBox.id){
 
@@ -283,14 +258,12 @@ function colorControl(blockArray,a){
                     break;
             }
             randomColor = randomColorGenerator();
-            //console.log(`Changed randomColor = ${randomColor}`);
         }
-        //console.log(`orange = ${countOrange}, yellow = ${countYellow}, blue = ${countBlue}, green = ${countGreen}, maroon = ${countMaroon}, white = ${countWhite}...`);
     }
 }
 
 function easyMode(){
-    resetter(refrenceNormal,6);
+    resetter(refrence,6);
     document.querySelector('style').remove();
     for(let i = 10; i < 17;i++){
         var j = String(i)+'s';
@@ -300,38 +273,43 @@ function easyMode(){
         document.getElementById(String(i)).remove();
     }
     emptyBoxSelector(25);
-    colorControl(refrenceEasy,4);
+    colorControl(refrence,4);
     entireBlock = Array.from(document.querySelectorAll('.five'));
     colorControl(entireBlock,4);
-
 }
 
 function normalMode(){
 
-    resetter(refrenceEasy,4);
-    var str = ' <div class="fourcrosssolution" id="10s"></div>\
-                <div class="fourcrosssolution" id="11s"></div>\
-                <div class="fourcrosssolution" id="12s"></div>\
-                <div class="fourcrosssolution" id="13s"></div>\
-                <div class="fourcrosssolution" id="14s"></div>\
-                <div class="fourcrosssolution" id="15s"></div>\
-                <div class="fourcrosssolution" id="16s"></div>'
+    resetter(refrence,4);
+    for(let i = 10; i<17; i++){
+        console.log(i);
+        var newBlock = document.createElement('div');
+        newBlock.setAttribute('class','fourcrosssolution');
+        newBlock.setAttribute('id',`${i}s`);
+        document.querySelector('#solution').appendChild(newBlock);
+    }
 
-    document.querySelector('#solution').innerHTML += str;
+    for(let j =26; j< 37; j++){
+        console.log(j);
+        var newBlock = document.createElement('div');
+        newBlock.setAttribute('class','six');
+        newBlock.setAttribute('id',`${j}`);
+        if(j<30){
+            newBlock.setAttribute('class',' six four');
+        }
+        else if(j>29 && j<32){
+            switch(j){
+                case 30:
+                    newBlock.dataset.normal = 'rightcolumn';
+                    break;
+                case 31:
+                    newBlock.dataset.normal = 'leftcolumn';
+                    break;
+            }
+        }
 
-    var strcon = '<div class="six four" id="26"></div>\
-                <div class="six four" id="27"></div>\
-                <div class="six four" id="28"></div>\
-                <div class="six four" id="29"></div>\
-                <div class="six" id="30" data-normal="rightcolumn"></div>\
-                <div class="six" id="31" data-normal="leftcolumn"></div>\
-                <div class="six" id="32" data-normal="bottomrow"></div>\
-                <div class="six" id="33" data-normal="bottomrow"></div>\
-                <div class="six" id="34" data-normal="bottomrow"></div>\
-                <div class="six" id="35" data-normal="bottomrow"></div>\
-                <div class="six" id="36" data-normal="bottomright"></div>'
-
-    document.querySelector('#container').innerHTML += strcon;
+        playArea.appendChild(newBlock);
+    }
 
     var styling = '#container{\
     grid-template-columns: repeat(6,1fr);\
@@ -349,21 +327,21 @@ function normalMode(){
     emptyBoxSelector(36);
     moves = 0;
     movesSetter();
-    refrenceNormal = Array.from(document.querySelectorAll('.fourcrosssolution'));
-    checkNormal = Array.from(document.querySelectorAll('.four'));
+    refrence = Array.from(document.querySelectorAll('.fourcrosssolution'));
+    checkThisOne = Array.from(document.querySelectorAll('.four'));
     entireBlock = Array.from(document.querySelectorAll('.six'));
-    colorControl(refrenceNormal,6);
+    colorControl(refrence,6);
     colorControl(entireBlock,6);
-    resetter(refrenceNormal,6);
+    resetter(refrence,6);
 }
 
 function runit(){
     namePrompt();
     emptyBoxSelector(25);
-    colorControl(refrenceEasy,4);
+    colorControl(refrence,4);
     entireBlock = Array.from(document.querySelectorAll('.five'));
     colorControl(entireBlock,4);
-    resetter(refrenceEasy,4);
+    resetter(refrence,4);
     var selection = document.querySelector('select');
     selection.onchange = () => {
         if(selection.value === 'easy'){
@@ -377,10 +355,10 @@ function runit(){
 
 button.addEventListener('click',() =>{
     if(document.querySelector('select').value == 'easy'){
-        resetter(refrenceEasy,4);
+        resetter(refrence,4);
     }
     else if(document.querySelector('select').value == 'normal'){
-        resetter(refrenceNormal,6);
+        resetter(refrence,6);
     }
 });
 

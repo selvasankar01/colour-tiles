@@ -1,17 +1,16 @@
-var refrenceEasy = Array.from(document.querySelectorAll('.threecrosssolution'));
-var refrenceNormal = Array.from(document.querySelectorAll('.fourcrosssolution'));
+var refrence = Array.from(document.querySelectorAll('.threecrosssolution'));
 var entireBlock;
+var correctOrder = Array();
 var givenOrderBig = Array();
 var initialEmptyBlock;
 var emptyBox;
 var playerCount = 0;
 const button = document.querySelector('button');
 const playArea = document.querySelector('#container');
-const checkEasy = Array.from(document.querySelectorAll('.three'));
-var checkNormal;
+var check = Array.from(document.querySelectorAll('.three'));
 var moves = 0;
 var player1Moves;
-var player2Moves
+var player2Moves;
 
 function randomColorGenerator(){
     let colorList = ['blue','yellow','orange','white','green','maroon'];
@@ -20,7 +19,6 @@ function randomColorGenerator(){
 function emptyBoxSelector(a){
     emptyBox = document.getElementById(String(Math.floor(Math.random()*a+1)));
     initialEmptyBlock = emptyBox;
-    //console.log(emptyBox);
     emptyBox.style.backgroundColor = null;
 }
 
@@ -50,15 +48,7 @@ function colorAssignment(blockArray,a){
     var countGreen = 0;
     var countMaroon = 0;
     var randomColor = randomColorGenerator();
-    correctOrder = Array();
-    givenOrderBig = Array();
-
-    //console.log(`blockArray  = ${blockArray.length}`);
-
     for(let i =0; i < blockArray.length; i++){
-        
-        // console.log(`i = ${i}`);
-        // console.log(`randomColor = ${randomColor}`)
 
         if(blockArray[i].id != emptyBox.id){
 
@@ -84,12 +74,10 @@ function colorAssignment(blockArray,a){
                 blockArray[i].style.backgroundColor = randomColor;
                 if(blockArray.length < 17){
                     correctOrder.push(randomColor);
-                    //console.log(correctOrder);
                 }
                 else{
                     givenOrderBig[i] = randomColor;
                     givenOrderBig[parseInt(emptyBox.id,10)-1] = 'gray';
-                    //console.log(givenOrderBig);
                 }
             }
 
@@ -116,9 +104,7 @@ function colorAssignment(blockArray,a){
                     break;
             }
             randomColor = randomColorGenerator();
-            //console.log(`Changed randomColor = ${randomColor}`);
         }
-        //console.log(`orange = ${countOrange}, yellow = ${countYellow}, blue = ${countBlue}, green = ${countGreen}, maroon = ${countMaroon}, white = ${countWhite}...`);
     }
 }
 
@@ -140,60 +126,43 @@ function resetter(array,a){
 
 function checker(){
     var count = 0;
-    var checkArray;
-    if (document.querySelector('select').value === 'easy'){
-        checkArray = checkEasy;
-        for(let i = 0; i < refrenceEasy.length; i++){
-            if(refrenceEasy[i].style.backgroundColor === checkEasy[i].style.backgroundColor){
-                count++;
-                //console.log('Correct Block');
-            }
-            else{
-                break;
-            }
+    for(let i = 0; i < refrence.length; i++){
+        if(refrence[i].style.backgroundColor === check[i].style.backgroundColor){
+            count++;
+        }
+        else{
+            break;
         }
     }
-    else if(document.querySelector('select').value === 'normal'){
-        checkArray = checkNormal;
-        for(let i =0; i < refrenceNormal.length; i++){
-            if(refrenceNormal[i].style.backgroundColor === checkNormal[i].style.backgroundColor){
-                count++;
-                //console.log('Correct Block');
+    if(count === check.length){
+        if (check.length === 9){
+            if(!localStorage.getItem('easyScoremulti')){
+                localStorage.setItem('easyHighmulti',name);
+                localStorage.setItem('easyScoremulti',moves);
             }
             else{
-                break;
-            }
-        }
-    }
-    if(count === checkArray.length){
-        if (checkArray.length === 9){
-            if(!localStorage.getItem('easyScore')){
-                localStorage.setItem('easyHigh',name);
-                localStorage.setItem('easyScore',moves);
-            }
-            else{
-                if(localStorage.getItem('easyScore') > moves){
-                    localStorage.getItem('esayHigh') = name;
-                    localStorage.getItem('easyScore') = moves;
+                if(localStorage.getItem('easyScoremulti') > moves){
+                    localStorage.setItem('easyHighmulti',name);
+                    localStorage.setItem('easyScoremulti',moves);
                 }
             }
             document.querySelector('#final').play();
-            alert(`You Finished in ${moves} moves!\nThis is Finished in ${localStorage.getItem('easyScore')} moves by ${localStorage.getItem('easyHigh')} which is least one!`);
+            alert(`You Finished in ${moves} moves!\nThis is Finished in ${localStorage.getItem('easyScoremulti')} moves by ${localStorage.getItem('easyHighmulti')} which is least one!`);
             playerTwo();
         }
-        else if(checkArray.length === 16){
-            if(!localStorage.getItem('normalScore')){
-                localStorage.setItem('normalHigh',name);
-                localStorage.setItem('normalScore',moves);
+        else if(check.length === 16){
+            if(!localStorage.getItem('normalScoremulti')){
+                localStorage.setItem('normalHighmulti',name);
+                localStorage.setItem('normalScoremulti',moves);
             }
             else{
-                if(localStorage.getItem('normalScore') > moves){
-                    localStorage.getItem('normalHigh') = name;
-                    localStorage.getItem('normalScore') = moves;
+                if(localStorage.getItem('normalScoremulti') > moves){
+                    localStorage.setItem('normalHighmulti',name);
+                    localStorage.setItem('normalScoremulti',moves);
                 }
             }
             document.querySelector('#final').play();
-            alert(`You Finished in ${moves} moves!\nThis is Finished in ${localStorage.getItem('normalScore')} moves by ${localStorage.getItem('normalHigh')} which is least one!`);
+            alert(`You Finished in ${moves} moves!\nThis is Finished in ${localStorage.getItem('normalScoremulti')} moves by ${localStorage.getItem('normalHighmulti')} which is least one!`);
             playerTwo();
         }
     }
@@ -203,24 +172,18 @@ function game(){
     var num;
     playArea.addEventListener('click',(e) => {
         var clickedDiv = e.target;
-        //console.log('Clicked',clickedDiv);
         var temp = clickedDiv.style.backgroundColor;
         var data;
-        var toCheck;
         if(document.querySelector('select').value === 'easy'){
             data = clickedDiv.dataset.position;
-            toCheck = checkEasy;
             num = 5;
         }
         else if(document.querySelector('select').value === 'normal'){
             data = clickedDiv.dataset.normal;
-            toCheck = checkNormal;
             num = 6;
         }
         if(clickedDiv.id == parseInt(emptyBox.id,10)+1){
             if(data != 'leftcolumn'){
-                // console.log(clickedDiv.nextElementSibling);
-                // console.log(`Changing Color to ${temp}`);
                 document.querySelector('#move').play();
                 emptyBox.style.backgroundColor = temp;
                 emptyBox = clickedDiv;
@@ -232,8 +195,6 @@ function game(){
         }
         else if(clickedDiv.id == parseInt(emptyBox.id,10)-1){
             if(data != 'rightcolumn'){
-                // console.log(clickedDiv.nextElementSibling);
-                // console.log(`Changing Color to ${temp}`);
                 document.querySelector('#move').play();
                 emptyBox.style.backgroundColor = temp;
                 emptyBox = clickedDiv;
@@ -244,8 +205,6 @@ function game(){
             }
         }
         else if(clickedDiv.id == parseInt(emptyBox.id,10)+num){
-            // console.log(clickedDiv.nextElementSibling);
-            // console.log(`Changing Color to ${temp}`);
             document.querySelector('#move').play();
             emptyBox.style.backgroundColor = temp;
             emptyBox = clickedDiv;
@@ -255,8 +214,6 @@ function game(){
             checker();
         } 
         else if(clickedDiv.id == parseInt(emptyBox.id,10)- num){
-            // console.log(clickedDiv.nextElementSibling);
-            // console.log(`Changing Color to ${temp}`);
             document.querySelector('#move').play();
             emptyBox.style.backgroundColor = temp;
             emptyBox = clickedDiv;
@@ -268,12 +225,12 @@ function game(){
         else{
             document.querySelector('#wrong').play();
         }
-       // console.log(`clicked.id - ${num} = ${parseInt(emptyBox.id)-num}`);
     });    
-    //console.log(`No.of Moves: ${moves}`);
 }
+
+
 function easyMode(){
-    resetter(refrenceNormal,6);
+    resetter(refrence,6);
     document.querySelector('style').remove();
     for(let i = 10; i < 17;i++){
         var j = String(i)+'s';
@@ -283,37 +240,40 @@ function easyMode(){
         document.getElementById(String(i)).remove();
     }
     emptyBoxSelector(25);
-    colorAssignment(refrenceEasy,4);
+    colorAssignment(refrence,4);
     entireBlock = Array.from(document.querySelectorAll('.five'));
     colorAssignment(entireBlock,4);    
 }
 
 function normalMode(){
-    resetter(refrenceEasy,4);
-    var str = ' <div class="fourcrosssolution" id="10s"></div>\
-                <div class="fourcrosssolution" id="11s"></div>\
-                <div class="fourcrosssolution" id="12s"></div>\
-                <div class="fourcrosssolution" id="13s"></div>\
-                <div class="fourcrosssolution" id="14s"></div>\
-                <div class="fourcrosssolution" id="15s"></div>\
-                <div class="fourcrosssolution" id="16s"></div>'
+    resetter(refrence,4);
+    for(let i=10;i<17;i++){
+        var newBlock = document.createElement('div');
+        newBlock.setAttribute('class','fourcrosssolution');
+        newBlock.setAttribute('id',`${i}s`);
+        document.querySelector('#solution').appendChild(newBlock);
+    }
 
-    document.querySelector('#solution').innerHTML += str;
-
-    var strcon = '<div class="six four" id="26"></div>\
-                <div class="six four" id="27"></div>\
-                <div class="six four" id="28"></div>\
-                <div class="six four" id="29"></div>\
-                <div class="six" id="30" data-normal="rightcolumn"></div>\
-                <div class="six" id="31" data-normal="leftcolumn"></div>\
-                <div class="six" id="32" data-normal="bottomrow"></div>\
-                <div class="six" id="33" data-normal="bottomrow"></div>\
-                <div class="six" id="34" data-normal="bottomrow"></div>\
-                <div class="six" id="35" data-normal="bottomrow"></div>\
-                <div class="six" id="36" data-normal="bottomright"></div>'
-
-    document.querySelector('#container').innerHTML += strcon;
-
+    for(let j=26; j<37;j++){
+        var newBlock = document.createElement('div');
+        newBlock.setAttribute('class','six');
+        newBlock.setAttribute('id',`${j}`);
+        if(j<30){
+            newBlock.setAttribute('class',' six four');
+        }
+        else if(j>29 && j<32){
+            switch(j){
+                case 30:
+                    newBlock.dataset.normal = 'rightcolumn';
+                    break;
+                case 31:
+                    newBlock.dataset.normal = 'leftcolumn';
+                    break;
+            }
+        }
+        playArea.appendChild(newBlock);
+    }
+    
     var styling = '#container{\
     grid-template-columns: repeat(6,1fr);\
     grid-template-rows: repeat(6,1fr);\
@@ -330,12 +290,12 @@ function normalMode(){
     emptyBoxSelector(36);
     moves = 0;
     movesSetter();
-    refrenceNormal = Array.from(document.querySelectorAll('.fourcrosssolution'));
-    checkNormal = Array.from(document.querySelectorAll('.four'));
+    refrence = Array.from(document.querySelectorAll('.fourcrosssolution'));
+    check = Array.from(document.querySelectorAll('.four'));
     entireBlock = Array.from(document.querySelectorAll('.six'));
-    colorAssignment(refrenceNormal,6);
+    colorAssignment(refrence,6);
     colorAssignment(entireBlock,6);
-    resetter(refrenceNormal,6);
+    resetter(refrence,6);
 }
 
 function playerTwo(){
@@ -343,12 +303,7 @@ function playerTwo(){
         namePrompt();
         if(document.querySelector('select').value === 'easy'){
             correctOrder.forEach((e,i) => {
-                refrenceEasy[i].style.backgroundColor = e;
-            });
-        }
-        else{
-            correctOrder.forEach((e,i) => {
-                refrenceNormal[i].style.backgroundColor = e;
+                refrence[i].style.backgroundColor = e;
             });
         }
         givenOrderBig.forEach((e,i) => {
@@ -375,10 +330,10 @@ function playerTwo(){
 function main(){
     namePrompt();
     emptyBoxSelector(25);
-    colorAssignment(refrenceEasy,4);
+    colorAssignment(refrence,4);
     entireBlock = Array.from(document.querySelectorAll('.five'));
     colorAssignment(entireBlock,4);
-    resetter(refrenceEasy,4);
+    resetter(refrence,4);
     var selection = document.querySelector('select');
     selection.onchange = () => {
         if(selection.value === 'easy'){
@@ -393,10 +348,10 @@ function main(){
 
 button.addEventListener('click',() =>{
     if(document.querySelector('select').value == 'easy'){
-        resetter(refrenceEasy,4);
+        resetter(refrence,4);
     }
     else if(document.querySelector('select').value == 'normal'){
-        resetter(refrenceNormal,6);
+        resetter(refrence,6);
     }
 });
 
