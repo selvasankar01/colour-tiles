@@ -21,7 +21,7 @@ function emptyBoxSelector(a){
 }
 
 function movesSetter(){
-    document.querySelector('.moves').textContent = `No Of Moves: ${moves}`;
+    document.querySelector('.moves').textContent = `No Of Moves: ${String(moves).padStart(2,'0')}`;
 }
 
 function namePrompt(){
@@ -49,7 +49,7 @@ function timer(){
             minutes++;
             seconds = 0;
         }
-        timeHolder.textContent = `Time: ${minutes}:${seconds}`;
+        timeHolder.textContent = `Time: ${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
         score = 100 - ((seconds+(minutes*60))/10+(moves/5));
     }
     inter = setInterval(i,1000);
@@ -93,7 +93,7 @@ function game(){
         }
 
 
-        if(document.querySelector('#time').textContent != 'Time: 0:0'){
+        if(document.querySelector('#time').textContent != 'Time: 00:00'){
             if(clickedDiv.id == parseInt(emptyBox.id,10)+1){
                 if(data != 'leftcolumn'){
                     moveSounds(true);
@@ -139,7 +139,7 @@ function game(){
             }
             else{
                  moveSounds(false);
-                 console.log('Played Wrong tune');
+                //  console.log('Played Wrong tune');
             }
         }
     });    

@@ -36,7 +36,7 @@ function namePrompt(){
 }
 
 function movesSetter(){
-    document.querySelector('#moves').textContent = `No Of Moves: ${moves}`;
+    document.querySelector('#moves').textContent = `No Of Moves: ${String(moves).padStart(2,'0')}`;
 }
 
 function colorAssignment(blockArray,a){
